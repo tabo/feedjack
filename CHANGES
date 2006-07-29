@@ -1,0 +1,19 @@
+CHANGES:
+
+Feedjack 0.9.7
+* The request handler uses PATH_INFO when REQUEST_URI is not available (like
+  in Django's development server)
+* Etags keep their quotation marks when stored.
+* The update_feeds.py got a lot of love:
+  - Every option has a help string (try with --help)
+  - A --verbose option. Default behavior is non-verbose and shows only the
+    current feed being analyzed and errors.
+  - A --timeout option to set the wait timeout in seconds when connecting to
+    feeds.
+
+Feedjack 0.9.6
+* Fixed a bug in the feedjack_update.py script that wasn't handling the
+  same blog with multiple feeds correctly.
+
+Feedjack 0.9.5
+* First public release

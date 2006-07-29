@@ -1,0 +1,14 @@
+Thanks for downloading Feedjack.
+
+You need:
+- Python 2.3 or greater (www.python.org)
+- Feedparser 4.1 (www.feedparser.org)
+- Django (www.djangoproject.com)
+
+You will need the development version of django (post magic-removal merge):
+http://www.djangoproject.com/documentation/install/#installing-the-development-version
+
+Now run this command:
+python setup.py install
+
+For more detailed information read http://tabo.aurealsys.com/software/feedjack/

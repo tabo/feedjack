@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<!--
+  Feedjack LostWoods theme
+  Simple and green (where's the brown? -brown doesn't count)
+ 
+  Copyright Diego Escalante Urrelo <descalante@aureal.com.pe>
+ -->
+<head>
+	<meta name="description" content="Feedjack" />
+	<meta name="generator" content="Feedjack">
+	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="{{ media_url }}/style.css" />
+        <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="{{ site.url }}/feed/rss/" />
+        {% block extrastyle %}{% endblock %}
+        {% block extrahead %}{% endblock %}
+        <title>{{ site.title }}</title>
+
+</head>
+
+<body>
+<div id="head">
+    <div id="logo">
+        <h1><a href="{{ site.url }}/">{{ site.name }}</a></h1>
+          A <a href="http://tabo.aurealsys.com/software/feedjack/" class="love_feedjack">Feedjack</a>
+          powered Planet
+    </div>
+</div>
+<div id="paginate">
+<ul>
+
+{% if has_previous %}
+<li><a href="?page={{ previous }}">&lt;&lt;</a></li>
+{% endif %}
+<li>Page {{ page }} of {{ pages }} ({{ hits }} posts)</li>
+{% if has_next %}
+<li><a href="?page={{ next }}">&gt;&gt;</a></li>
+{% endif %}
+{% if user %}
+<li class="username"><a href="{{ user.feed.link }}">{{ user.name }}</a> talks about »</li>
+{% endif %}
+{% if tag %}
+<li class="tagname">{{ tag.name }}</li>
+{% endif %}
+</ul>
+</div>
+
+    <div id="buttons">
+      <a href="{{ site.url }}/feed/rss/" title="RSS 2.0 feed"><img src="{{ media_url }}/img/button-rss.png"/></a> &bull;   
+      <a href="http://www.djangoproject.com/"><img src="http://media.djangoproject.com/img/badges/djangosite80x15.gif" border="0" alt="A Django site." title="A Django site."></a> &bull;
+      <img src="{{ media_url }}/img/button-hacker.png"/><br/>
+      <a href="{{ site.url }}/feed/atom/" title="Atom 1.0 feed"><img src="{{ media_url }}/img/button-atom.png"/></a> &bull; 
+      <a href="{{ site.url }}/opml/" title="OPML"><img src="{{ media_url }}/img/button-opml.png"/></a> &bull; 
+      <a href="{{ site.url }}/foaf/" title="FOAF"><img src="{{ media_url }}/img/button-foaf.png"/></a>
+    </div>
+
+{% if user %}
+<div id="usertags">
+    <ul>
+    {% for tag in tagcloud %}
+      <li><a
+      {% if user_id %}
+      href="{{ site.url }}/user/{{ user_id }}/tag/{{ tag.tagname|urlencode }}/"
+      {% else %}
+      href="{{ site.url }}/tag/{{ tag.tagname|urlencode }}/"
+      {% endif %}
+      title="{{ tag.count }} posts"
+      class="cloud_{{ tag.weight }}">{{ tag.tagname }}</a></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}    
+
+<div id="content">
+
+{% for item in object_list %}
+
+  {% ifchanged %}
+  <div class="date">{{ item.date_modified|date:"F j, Y" }}</div>
+  {% endifchanged %}
+
+  <div class="post">
+  {% ifchanged %}
+  <!-- {{ item.date_modified|date:"F j, Y" }} -->
+  <div class="avatar">
+    <img 
+     src="{{ media_url }}/img/faces/{{ item.subscriber.shortname}}.png" alt="">
+    <br/>
+    <span class="name">{{ item.subscriber.name }}</span><br/>
+    {% ifnotequal item.subscriber.shortname "nobody" %}
+    <span class="nick">{{ item.subscriber.shortname }}</span><br/>
+    {% endifnotequal %}
+    {% if item.subscriber.get_cloud %}
+    <span class="url">
+      <a href="{{ item.feed.link }}">{{ item.feed.title }}</a> is about »
+    </span>
+    <div class="tags">
+      <ul>
+        {% for tag in item.subscriber.get_cloud %}
+        <li><a
+          href="{{ site.url }}/user/{{ item.subscriber.feed.id }}/tag/{{ tag.tagname|urlencode}}/"
+          title="{{ tag.count }} posts"
+          class="cloud_{{ tag.weight }}">{{ tag.tagname }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% else %}
+    <span class="url">
+      <a href="{{ item.feed.link }}">{{ item.feed.title }}</a>
+    </span>
+    {% endif %}
+  </div>
+  {% endifchanged %}
+
+  {% if item.title %}
+  <div class="post-title">» {{ item.title }}</div>
+  {% else %}
+  <div class="post-title">» {{ item.subscriber.name }}</div>
+  {% endif %}
+  <div class="post-content">
+    <p>{{ item.content }}</p>
+    <div class="post-meta">
+      <a href="{{ item.link }}">
+      {% if item.author %}by {{ item.author }} at{% endif %}
+      {{ item.date_modified|date:"g:i A" }}</a>
+      {% for tag in item.qtags %}
+          {% if forloop.first %}under{% endif %}
+          <a href="{{ site.url }}/tag/{{ tag.name }}">{{ tag.name }}</a>
+          {% if not forloop.last %}, {% endif %}
+      {% endfor %}
+      {% if item.comments %}
+        <a href="{{ item.comments }}">(Commments)</a>
+      {% endif %}
+    </div>
+  </div>
+  </div>
+{% endfor %}
+</div>
+<div id="sidebar">
+<h4>{{ site.name }}</h4>
+
+{{ site.welcome }}
+
+<h4>
+What {% if user_id %}{{ user.name }}{% else %}people{% endif %} talks about
+</h4>
+
+<div id="tags">
+    <ul id="cloud">
+    {% for tag in tagcloud %}
+      <li><a
+      {% if user_id %}
+      href="{{ site.url }}/user/{{ user_id }}/tag/{{ tag.tagname|urlencode }}/"
+      {% else %}
+      href="{{ site.url }}/tag/{{ tag.tagname|urlencode }}/"
+      {% endif %}
+      title="{{ tag.count }} posts"
+      class="cloud_{{ tag.weight }}">{{ tag.tagname }}</a></li>
+    {% endfor %}
+    </ul>
+</div>
+
+<h4>Meta</h4>
+<p>
+Last update:<br/>
+<b>{{ last_modified }}</b>
+<br/>
+</p>
+
+<h4>People</h4>
+
+<ul class="suscriptores">
+{% for feed in subscribers %}
+<li>
+<a href="{{ feed.feed.feed_url }}"
+{% if feed.feed.last_modified %}
+title="feed (last modified: {{ feed.feed.last_modified }})"
+{% else %}
+title="feed"
+{% endif %}
+>
+<img src="{{ media_url }}/img/feed.png" alt="feed"></a>
+<a class="nombre" href="{{ site.url }}/user/{{ feed.feed.id }}"
+title="{{ feed.feed.title }}">{{ feed.name }}</a></li>
+{% endfor %}
+</ul>
+
+
+<h4>Greetings</h4>
+{{ site.greets }}
+
+</div>
+
+<div id="paginate">
+<ul>
+
+{% if has_previous %}
+<li><a href="?page={{ previous }}">&lt;&lt;</a></li>
+{% endif %}
+<li>Page {{ page }} of {{ pages }} ({{ hits }} posts)</li>
+{% if has_next %}
+<li><a href="?page={{ next }}">&gt;&gt;</a></li>
+{% endif %}
+{% if user %}
+<li class="username"><a href="{{ user.feed.link }}">{{ user.name }}</a></li>
+{% endif %}
+{% if tag %}
+<li class="tagname">{{ tag.name }}</li>
+{% endif %}
+</ul>
+</div>
+</body>
+
+</html>
+
