@@ -24,4 +24,4 @@ But FeedJack also has some advantages:
     * Extensive use of django’s internal cache engine. Most of the time you
       will have no database hits when serving pages.
 
-Web site is http://tabo.aurealsys.com/software/feedjack/
+Web site is http://www.feedjack.org/

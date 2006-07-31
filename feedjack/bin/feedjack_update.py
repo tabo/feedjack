@@ -19,8 +19,8 @@ import feedparser
 
 from feedjack import models, fjcache
 
-VERSION = '0.9.7'
-URL = 'http://tabo.aurealsys.com/software/feedjack/'
+VERSION = '0.9.8a1'
+URL = 'http://www.feedjack.org/'
 USER_AGENT = 'Feedjack %s - %s' % (VERSION, URL)
 
 def encode(tstr):

@@ -11,4 +11,4 @@ http://www.djangoproject.com/documentation/install/#installing-the-development-v
 Now run this command:
 python setup.py install
 
-For more detailed information read http://tabo.aurealsys.com/software/feedjack/
+For more detailed information read http://www.feedjack.org/
