@@ -1,3 +1,4 @@
+{% load i18n %}
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -24,8 +25,7 @@
 <div id="head">
     <div id="logo">
         <h1><a href="{{ site.url }}/">{{ site.name }}</a></h1>
-          A <a href="http://www.feedjack.org/" class="love_feedjack">Feedjack</a>
-          powered Planet
+          {% blocktrans %}A <a href="http://www.feedjack.org/" class="love_feedjack" title="Feedjack Powered">Feedjack</a> powered Planet{% endblocktrans %}
     </div>
 </div>
 <div id="paginate">
@@ -34,12 +34,16 @@
 {% if has_previous %}
 <li><a href="?page={{ previous }}">&lt;&lt;</a></li>
 {% endif %}
-<li>Page {{ page }} of {{ pages }} ({{ hits }} posts)</li>
+<li>
+  Page {{ page }} of {{ pages }} (
+    {% blocktrans count hits as posts %}{{ posts }} post{% plural %}{{ posts }} posts{% endblocktrans %}
+  )
+</li>
 {% if has_next %}
 <li><a href="?page={{ next }}">&gt;&gt;</a></li>
 {% endif %}
 {% if user %}
-<li class="username"><a href="{{ user.feed.link }}">{{ user.name }}</a> talks about »</li>
+<li class="username"><a href="{{ user.feed.link }}">{{ user.name }}</a>{% trans "talks about" %} »</li>
 {% endif %}
 {% if tag %}
 <li class="tagname">{{ tag.name }}</li>
@@ -66,7 +70,7 @@
       {% else %}
       href="{{ site.url }}/tag/{{ tag.tagname|urlencode }}/"
       {% endif %}
-      title="{{ tag.count }} posts"
+      title="{% blocktrans count tag.count as posts %}{{ posts }} post{% plural %}{{ posts }} posts{% endblocktrans %}"
       class="cloud_{{ tag.weight }}">{{ tag.tagname }}</a></li>
     {% endfor %}
     </ul>
@@ -94,14 +98,14 @@
     {% endifnotequal %}
     {% if item.subscriber.get_cloud %}
     <span class="url">
-      <a href="{{ item.feed.link }}">{{ item.feed.title }}</a> is about »
+      <a href="{{ item.feed.link }}">{{ item.feed.title }}</a> {% trans "is about" %} »
     </span>
     <div class="tags">
       <ul>
         {% for tag in item.subscriber.get_cloud %}
         <li><a
           href="{{ site.url }}/user/{{ item.subscriber.feed.id }}/tag/{{ tag.tagname|urlencode}}/"
-          title="{{ tag.count }} posts"
+          title="{% blocktrans count tag.count as posts %}{{ posts }} post{% plural %}{{ posts }} posts{% endblocktrans %}"
           class="cloud_{{ tag.weight }}">{{ tag.tagname }}</a></li>
         {% endfor %}
       </ul>
@@ -123,15 +127,15 @@
     <p>{{ item.content }}</p>
     <div class="post-meta">
       <a href="{{ item.link }}">
-      {% if item.author %}by {{ item.author }} at{% endif %}
+      {% if item.author %}{% blocktrans %}by {{ item.author }} at{% endblocktrans %}{% endif %}
       {{ item.date_modified|date:"g:i A" }}</a>
       {% for tag in item.qtags %}
-          {% if forloop.first %}under{% endif %}
+          {% if forloop.first %}{% trans "under" %}{% endif %}
           <a href="{{ site.url }}/tag/{{ tag.name }}">{{ tag.name }}</a>
           {% if not forloop.last %}, {% endif %}
       {% endfor %}
       {% if item.comments %}
-        <a href="{{ item.comments }}">(Commments)</a>
+        <a href="{{ item.comments }}">({% trans "Comments" %})</a>
       {% endif %}
     </div>
   </div>
@@ -144,7 +148,11 @@
 {{ site.welcome }}
 
 <h4>
-What {% if user_id %}{{ user.name }}{% else %}people{% endif %} talks about
+{% if user_id %}
+  {% blocktrans %}What {{ user.name }} talks about{% endblocktrans %}
+{% else %}
+  {% blocktrans %}What people talk about{% endblocktrans %}
+{% endif %}
 </h4>
 
 <div id="tags">
@@ -156,29 +164,29 @@ What {% if user_id %}{{ user.name }}{% else %}people{% endif %} talks about
       {% else %}
       href="{{ site.url }}/tag/{{ tag.tagname|urlencode }}/"
       {% endif %}
-      title="{{ tag.count }} posts"
+      title="{% blocktrans count tag.count as posts %}{{ posts }} post{% plural %}{{ posts }} posts{% endblocktrans %}"
       class="cloud_{{ tag.weight }}">{{ tag.tagname }}</a></li>
     {% endfor %}
     </ul>
 </div>
 
-<h4>Meta</h4>
+<h4>{% trans "Meta" %}</h4>
 <p>
-Last update:<br/>
+{% trans "Last update" %}:<br/>
 <b>{{ last_modified }}</b>
 <br/>
 </p>
 
-<h4>People</h4>
+<h4>{% trans "People" %}</h4>
 
 <ul class="suscriptores">
 {% for feed in subscribers %}
 <li>
 <a href="{{ feed.feed.feed_url }}"
 {% if feed.feed.last_modified %}
-title="feed (last modified: {{ feed.feed.last_modified }})"
+title="{% blocktrans %}feed (last modified: {{ feed.feed.last_modified }}){% endblocktrans %}"
 {% else %}
-title="feed"
+title="{% title "feed" %}"
 {% endif %}
 >
 <img src="{{ media_url }}/img/feed.png" alt="feed"></a>
@@ -188,7 +196,7 @@ title="{{ feed.feed.title }}">{{ feed.name }}</a></li>
 </ul>
 
 
-<h4>Greetings</h4>
+<h4>{% trans "Greetings" %}</h4>
 {{ site.greets }}
 
 </div>
@@ -199,7 +207,11 @@ title="{{ feed.feed.title }}">{{ feed.name }}</a></li>
 {% if has_previous %}
 <li><a href="?page={{ previous }}">&lt;&lt;</a></li>
 {% endif %}
-<li>Page {{ page }} of {{ pages }} ({{ hits }} posts)</li>
+<li>
+  Page {{ page }} of {{ pages }} (
+    {% blocktrans count hits as posts %}{{ posts }} post{% plural %}{{ posts }} posts{% endblocktrans %}
+  )
+</li>
 {% if has_next %}
 <li><a href="?page={{ next }}">&gt;&gt;</a></li>
 {% endif %}

@@ -1,3 +1,4 @@
+{% load i18n %}
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -14,7 +15,7 @@
 <div id="header">
 <div class="tit">
 <h1><a href="{{ site.url }}" title="{{ site.name }}">{{ site.name }}</a></h1>
-<p>A <a href="http://www.feedjack.org/" title="Feedjack Powered">Feedjack</a> powered planet</p>
+<p>{% blocktrans %}A <a href="http://www.feedjack.org/" class="love_feedjack" title="Feedjack Powered">Feedjack</a> powered Planet{% endblocktrans %}</p>
 </div>
 <!--div class="googlead">
 Insert here your google ad code ;)
@@ -46,8 +47,8 @@ Insert here your google ad code ;)
         {{ item.content }}
         <!-- End .content -->
         </div>
-        <p class="date"><a href="{{ item.link }}" title="Author link">{% if item.author %}by {{ item.author }} at {% endif %}{{ item.date_modified|date:"g:i A" }}</a>{% for tag in item.qtags %}{% if forloop.first %} under {% endif %}<a href="{{ site.url }}/tag/{{ tag.name }}" title="Tag">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
-        {% if item.comments %}<a href="{{ item.comments }}" title="Comments">(Comments)</a> {% endif %}
+        <p class="date"><a href="{{ item.link }}" title="{% trans "Author link" %}">{% if item.author %}{% blocktrans %}by {{ item.author }} at{% endblocktrans %}{% endif %}{{ item.date_modified|date:"g:i A" }}</a>{% for tag in item.qtags %}{% if forloop.first %} {% trans "under" %} {% endif %}<a href="{{ site.url }}/tag/{{ tag.name }}" title="Tag">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
+        {% if item.comments %}<a href="{{ item.comments }}" title="{% trans "Comments" %}">({% trans "Comments" %})</a> {% endif %}
         </p>
     <!-- End .entry -->
     </div>
@@ -77,7 +78,7 @@ Insert here your google ad code ;)
     <a href="http://validator.w3.org/check/referer" title="This page validates as XHTML 1.1 Transitional"><img src="{{ media_url }}/img/xhtml.png" alt="XHTML Valid" width="80px" height="15px"/></a>
 </p>
 
-<h2>Tag soup</h2>
+<h2>{% trans "Tag soup" %}</h2>
 <p id="cloud">
 {% for tag in tagcloud %}
       <a
@@ -86,12 +87,12 @@ Insert here your google ad code ;)
       {% else %}
       href="{{ site.url }}/tag/{{ tag.tagname|urlencode }}/"
       {% endif %}
-      title="{{ tag.count }} posts"
+      title="{% blocktrans count tag.count as posts %}{{ posts }} post{% plural %}{{ posts }} posts{% endblocktrans %}"
       class="cloud_{{ tag.weight }}">{{ tag.tagname }}</a>
 {% endfor %}
 </p>
 
-<h2>Friends</h2>
+<h2>{% trans "Friends" %}</h2>
 <div class="suscribers">
 {% for feed in subscribers %}
 <p>
@@ -103,7 +104,7 @@ Insert here your google ad code ;)
 {% endfor %}
 </div>
 {% if site.links %}
-<h2>Links</h2>
+<h2>{% trans "Links" %}</h2>
 <ul class="planetarium">
 {% for link in site.links.all %}<li><a href="{{ link.link }}">{{ link.name }}</a></li>
 {% endfor %}
@@ -121,20 +122,22 @@ Insert here your google ad code ;)
 <div id="footer">
 {% if site.welcome %}
 <div class="welcome">
-<h2>Welcome</h2>
+<h2>{% trans "Welcome" %}</h2>
 {{ site.welcome }}
 </div>
 {% endif %}
 {% if site.greets %}
 <div class="credits">
-<h2>Credits</h2> 
+<h2>{% trans "Credits" %}</h2> 
 {{ site.greets }}
 </div>
 {% endif %}
 
 <p class="paginator clear">
-Page {{ page }} of {{ pages }} ({{ hits }} posts) <br/>
-{% if has_previous %}<a href="?page={{ previous }}">&lt;&lt; Back</a>{% endif %} {% if has_next %}<a href="?page={{ next }}">Forward &gt;&gt;</a>{% endif %}</p>
+  Page {{ page }} of {{ pages }} (
+    {% blocktrans count hits as posts %}{{ posts }} post{% plural %}{{ posts }} posts{% endblocktrans %}
+  ) <br/>
+{% if has_previous %}<a href="?page={{ previous }}">&lt;&lt; {% trans "Back" %}</a>{% endif %} {% if has_next %}<a href="?page={{ next }}">{% trans "Forward" %} &gt;&gt;</a>{% endif %}</p>
 </div>
 
 </body>
