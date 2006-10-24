@@ -49,7 +49,7 @@ def get_tags(entry, tagdict):
             for zcat in qcat:
                 tagname = zcat.lower()
                 while '  ' in tagname:
-                    tagname.replace('  ', ' ')
+                    tagname = tagname.replace('  ', ' ')
                 if not tagname or tagname == ' ':
                     continue
                 if tagname not in tagdict:
