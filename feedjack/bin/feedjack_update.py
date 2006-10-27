@@ -39,8 +39,8 @@ def get_tags(entry, tagdict):
     """ Returns a list of tag objects from an entry.
     """
     fcat = []
-    if entry.has_key('categories'):
-        for tcat in entry.categories:
+    if entry.has_key('tags'):
+        for tcat in entry.tags:
             qcat = encode(tcat[1]).strip()
             if ',' in qcat or '/' in qcat:
                 qcat = qcat.replace(',', '/').split('/')
