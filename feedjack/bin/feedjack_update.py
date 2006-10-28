@@ -41,7 +41,7 @@ def get_tags(entry, tagdict):
     fcat = []
     if entry.has_key('tags'):
         for tcat in entry.tags:
-            qcat = encode(tcat[1]).strip()
+            qcat = encode(tcat.term).strip()
             if ',' in qcat or '/' in qcat:
                 qcat = qcat.replace(',', '/').split('/')
             else:
