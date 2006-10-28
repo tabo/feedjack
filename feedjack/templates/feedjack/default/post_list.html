@@ -186,7 +186,7 @@
 {% if feed.feed.last_modified %}
 title="{% blocktrans %}feed (last modified: {{ feed.feed.last_modified }}){% endblocktrans %}"
 {% else %}
-title="{% title "feed" %}"
+title="{% trans "feed" %}"
 {% endif %}
 >
 <img src="{{ media_url }}/img/feed.png" alt="feed"></a>
