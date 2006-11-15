@@ -1,5 +1,13 @@
 CHANGES:
 
+Feedjack 0.9.8
+* Internationalization (petar)
+* Fixed and infinite loop in feedjack_update.py (do'h!) (petar)
+* Added Serbian (Latin) translation (petar)
+* Updated the feedparser calls in feedjack_update.py (petar)
+* Added Spanish translation (predius)
+
+
 Feedjack 0.9.7
 * The request handler uses PATH_INFO when REQUEST_URI is not available (like
   in Django's development server)

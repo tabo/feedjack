@@ -1,6 +1,13 @@
 Feedjack was developed to power ChichaPlanet (www.chichaplanet.org) by Gustavo
 Picón, using the Django Web Development framework.
 
+Colaborators:
+ * Petar Marić  (internationalization and lots more)
+
+Language packs:
+ * Petar Marić (serbian)
+ * Gabriel Puliatti (spanish)
+
 Template authors:
  * Diego Escalante: LostWoods (default) theme.
  * Jesus del Carpio: sinx
