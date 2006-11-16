@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Feedjack Serbian (latin) translation v1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-21 18:43+0200\n"
-"PO-Revision-Date: 2006-10-25 01:00+0100\n"
+"POT-Creation-Date: 2006-11-16 03:51+0100\n"
+"PO-Revision-Date: 2006-11-16 03:53+0100\n"
 "Last-Translator: Petar Marić <petar.maric@gmail.com>\n"
 "Language-Team: Petar Marić <petar.maric@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -132,7 +132,7 @@ msgid "is active"
 msgstr "je aktivan"
 
 #: .\models.py:97
-msgid "If this is disabled, ths feed will not be further updated."
+msgid "If disabled, this feed will not be further updated."
 msgstr "Ako ovo onemogućite, feed se više neće ažurirati."
 
 #: .\models.py:100
@@ -158,6 +158,7 @@ msgstr "Feedjack automatski ažurira ova polja"
 #: .\models.py:121
 #: .\models.py:146
 #: .\models.py:181
+#: .\templates\feedjack\default\post_list.html.py:189
 msgid "feed"
 msgstr "feed"
 

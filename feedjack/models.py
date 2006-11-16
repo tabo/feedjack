@@ -94,7 +94,7 @@ class Feed(models.Model):
     name = models.CharField(_('name'), maxlength=100)
     shortname = models.CharField(_('shortname'), maxlength=50)
     is_active = models.BooleanField(_('is active'), default=True, \
-      help_text=_('If this is disabled, ths feed will not be further updated.') )
+      help_text=_('If disabled, this feed will not be further updated.') )
 
     title = models.CharField(_('title'), maxlength=200, blank=True)
     tagline = models.TextField(_('tagline'), blank=True)
