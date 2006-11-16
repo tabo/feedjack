@@ -28,7 +28,12 @@ def encode(tstr):
     """
     if not tstr:
         return ''
-    return tstr.encode('utf-8', "xmlcharrefreplace")
+    # this is _not_ pretty, but it works
+    try:
+        return tstr.encode('utf-8', "xmlcharrefreplace")
+    except UnicodeDecodeError:
+        # it's already UTF8.. sigh
+        return tstr.decode('utf-8').encode('utf-8')
 
 def mtime(ttime):
     """ datetime auxiliar function.
