@@ -2,228 +2,237 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Feedjack Spanish translation v1.0\n"
 "POT-Creation-Date: 2006-10-25 01:15+0100\n"
-"PO-Revision-Date: 2006-10-25 01:15+0100\n"
-"Last-Translator: Petar Marić <petar.maric@gmail.com>\n"
+"PO-Revision-Date: 2006-11-15 21:14-0500\n"
+"Last-Translator: Gustavo Picón <gpicon@aureal.com.pe>\n"
 "Language-Team: Petar Marić <petar.maric@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Country: YUGOSLAVIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Basepath: ../../../\n"
 
 #: .\models.py:16
 msgid "Date published."
-msgstr ""
+msgstr "Fecha publicado."
 
 #: .\models.py:17
 msgid "Date the post was first obtained."
-msgstr ""
+msgstr "Fecha el artículo fue obtenido."
 
-#: .\models.py:21 .\models.py:36 .\models.py:94 .\models.py:132
+#: .\models.py:21
+#: .\models.py:36
+#: .\models.py:94
+#: .\models.py:132
 #: .\models.py:183
 msgid "name"
-msgstr ""
+msgstr "nombre"
 
-#: .\models.py:22 .\models.py:25 .\models.py:101 .\models.py:148
+#: .\models.py:22
+#: .\models.py:25
+#: .\models.py:101
+#: .\models.py:148
 msgid "link"
-msgstr ""
+msgstr "enlace"
 
-#: .\models.py:26 .\models.py:56
+#: .\models.py:26
+#: .\models.py:56
 msgid "links"
-msgstr ""
+msgstr "enlaces"
 
 #: .\models.py:37
 msgid "url"
-msgstr ""
+msgstr "dirección"
 
 #: .\models.py:38
 msgid "Example"
-msgstr ""
+msgstr "Ejemplo"
 
-#: .\models.py:40 .\models.py:99 .\models.py:147
+#: .\models.py:40
+#: .\models.py:99
+#: .\models.py:147
 msgid "title"
-msgstr ""
+msgstr "título"
 
 #: .\models.py:41
 msgid "description"
-msgstr ""
+msgstr "descripción"
 
 #: .\models.py:42
 msgid "welcome"
-msgstr ""
+msgstr "bienvenido"
 
 #: .\models.py:43
 msgid "greets"
-msgstr ""
+msgstr "saluda"
 
 #: .\models.py:45
 msgid "default site"
-msgstr ""
+msgstr "página por defecto"
 
 #: .\models.py:46
 msgid "posts per page"
-msgstr ""
+msgstr "artículos por página"
 
 #: .\models.py:47
 msgid "order posts by"
-msgstr ""
+msgstr "ordenar artículos por"
 
 #: .\models.py:49
 msgid "tagcloud level"
-msgstr ""
+msgstr "nível de nube de etiquetas"
 
 #: .\models.py:50
 msgid "show tagcloud"
-msgstr ""
+msgstr "mostrar nube de etiquetas"
 
 #: .\models.py:52
 msgid "use internal cache"
-msgstr ""
+msgstr "usar caché interno"
 
 #: .\models.py:53
 msgid "cache duration"
-msgstr ""
+msgstr "duración del caché"
 
 #: .\models.py:54
 msgid "Duration in seconds of the cached pages and data."
-msgstr ""
+msgstr "Duración en segundos de las páginas y datos en el caché."
 
 #: .\models.py:58
 msgid "template"
-msgstr ""
+msgstr "plantilla"
 
 #: .\models.py:59
-msgid ""
-"This template must be a directory in your feedjack templates directory. "
-"Leave blank to use the default template."
-msgstr ""
+msgid "This template must be a directory in your feedjack templates directory. Leave blank to use the default template."
+msgstr "Esta plantilla debe ser un directorio en el directorio templates de feedjack. Si no se introduce nada, se usara la plantilla defecto."
 
-#: .\models.py:66 .\models.py:180
+#: .\models.py:66
+#: .\models.py:180
 msgid "site"
-msgstr ""
+msgstr "sitio"
 
 #: .\models.py:67
 msgid "sites"
-msgstr ""
+msgstr "sitios"
 
 #: .\models.py:92
 msgid "feed url"
-msgstr ""
+msgstr "dirección de la fuente"
 
-#: .\models.py:95 .\models.py:185
+#: .\models.py:95
+#: .\models.py:185
 msgid "shortname"
-msgstr ""
+msgstr "nombre corto"
 
-#: .\models.py:96 .\models.py:187
+#: .\models.py:96
+#: .\models.py:187
 msgid "is active"
-msgstr ""
+msgstr "está activo"
 
 #: .\models.py:97
 msgid "If this is disabled, ths feed will not be further updated."
-msgstr ""
+msgstr "Si esto esta deshabilitado, esta fuente no será actualizada."
 
 #: .\models.py:100
 msgid "tagline"
-msgstr ""
+msgstr "linea de etiqueta"
 
 #: .\models.py:104
 msgid "etag"
-msgstr ""
+msgstr "eetiqueta"
 
 #: .\models.py:105
 msgid "last modified"
-msgstr ""
+msgstr "última modificación"
 
 #: .\models.py:106
 msgid "last checked"
-msgstr ""
+msgstr "última revisión"
 
 #: .\models.py:113
 msgid "Fields updated automatically by Feedjack"
-msgstr ""
+msgstr "Campos actualizados automáticamente por Feedjack"
 
-#: .\models.py:121 .\models.py:146 .\models.py:181
+#: .\models.py:121
+#: .\models.py:146
+#: .\models.py:181
 msgid "feed"
-msgstr ""
+msgstr "fuente"
 
 #: .\models.py:122
 msgid "feeds"
-msgstr ""
+msgstr "fuentes"
 
 #: .\models.py:135
 msgid "tag"
-msgstr ""
+msgstr "etiqueta"
 
-#: .\models.py:136 .\models.py:155
+#: .\models.py:136
+#: .\models.py:155
 msgid "tags"
-msgstr ""
+msgstr "etiquetas"
 
 #: .\models.py:149
 msgid "content"
-msgstr ""
+msgstr "contenido"
 
 #: .\models.py:150
 msgid "date modified"
-msgstr ""
+msgstr "fecha de modificación"
 
 #: .\models.py:151
 msgid "guid"
-msgstr ""
+msgstr "guid"
 
 #: .\models.py:152
 msgid "author"
-msgstr ""
+msgstr "autor"
 
 #: .\models.py:153
 msgid "author email"
-msgstr ""
+msgstr "correo del autor"
 
 #: .\models.py:154
 msgid "comments"
-msgstr ""
+msgstr "comentarios"
 
 #: .\models.py:156
 msgid "date created"
-msgstr ""
+msgstr "fecha de creación"
 
 #: .\models.py:164
 msgid "post"
-msgstr ""
+msgstr "artículo"
 
 #: .\models.py:165
 msgid "posts"
-msgstr ""
+msgstr "artículos"
 
 #: .\models.py:184
 msgid "Keep blank to use the Feed's original name."
-msgstr ""
+msgstr "Dejar en blanco para usar el nombre original de la fuente."
 
 #: .\models.py:186
 msgid "Keep blank to use the Feed's original shortname."
-msgstr ""
+msgstr "Dejar en blanco para usar el nombre corto original de la fuente."
 
 #: .\models.py:188
-msgid ""
-"If disabled, this subscriber will not appear in the site or in the site's "
-"feed."
-msgstr ""
+msgid "If disabled, this subscriber will not appear in the site or in the site's feed."
+msgstr "Si esto está deshabilitado, este suscritor no aparecerá en el sitio o en la fuente del sitio."
 
 #: .\models.py:196
 msgid "subscriber"
-msgstr ""
+msgstr "suscritor"
 
 #: .\models.py:197
 msgid "subscribers"
-msgstr ""
+msgstr "suscritores"
 
 #: .\templates\feedjack\default\post_list.html.py:28
 #: .\templates\feedjack\sinx\post_list.html.py:18
-msgid ""
-"A <a href=\"http://www.feedjack.org/\" class=\"love_feedjack\" title="
-"\"Feedjack Powered\">Feedjack</a> powered Planet"
-msgstr ""
+msgid "A <a href=\"http://www.feedjack.org/\" class=\"love_feedjack\" title=\"Feedjack Powered\">Feedjack</a> powered Planet"
+msgstr "Un <a href=\"http://www.feedjack.org/\" class=\"love_feedjack\" title=\"Feedjack Powered\">Feedjack</a> powered Planet"
 
 #: .\templates\feedjack\default\post_list.html.py:39
 #: .\templates\feedjack\default\post_list.html.py:73
@@ -240,48 +249,48 @@ msgstr[1] ""
 
 #: .\templates\feedjack\default\post_list.html.py:46
 msgid "talks about"
-msgstr ""
+msgstr "habla sobre"
 
 #: .\templates\feedjack\default\post_list.html.py:101
 msgid "is about"
-msgstr ""
+msgstr "es sobre"
 
 #: .\templates\feedjack\default\post_list.html.py:130
 #: .\templates\feedjack\sinx\post_list.html.py:50
 #, python-format
 msgid "by %(item.author)s at"
-msgstr ""
+msgstr "por %(item.author)s en"
 
 #: .\templates\feedjack\default\post_list.html.py:133
 #: .\templates\feedjack\sinx\post_list.html.py:50
 msgid "under"
-msgstr ""
+msgstr "debajo"
 
 #: .\templates\feedjack\default\post_list.html.py:138
 #: .\templates\feedjack\sinx\post_list.html.py:51
 msgid "Comments"
-msgstr ""
+msgstr "Commentarios"
 
 #: .\templates\feedjack\default\post_list.html.py:152
 #, python-format
 msgid "What %(user.name)s talks about"
-msgstr ""
+msgstr "Lo que %(user.name)s habla sobre"
 
 #: .\templates\feedjack\default\post_list.html.py:154
 msgid "What people talk about"
-msgstr ""
+msgstr "Lo que la gente habla sobre"
 
 #: .\templates\feedjack\default\post_list.html.py:173
 msgid "Meta"
-msgstr ""
+msgstr "Meta"
 
 #: .\templates\feedjack\default\post_list.html.py:175
 msgid "Last update"
-msgstr ""
+msgstr "Ultima actualización"
 
 #: .\templates\feedjack\default\post_list.html.py:180
 msgid "People"
-msgstr ""
+msgstr "Gente"
 
 #: .\templates\feedjack\default\post_list.html.py:187
 #, python-format
@@ -290,36 +299,37 @@ msgstr ""
 
 #: .\templates\feedjack\default\post_list.html.py:199
 msgid "Greetings"
-msgstr ""
+msgstr "Saludos"
 
 #: .\templates\feedjack\sinx\post_list.html.py:50
 msgid "Author link"
-msgstr ""
+msgstr "Enlace del autor"
 
 #: .\templates\feedjack\sinx\post_list.html.py:81
 msgid "Tag soup"
-msgstr ""
+msgstr "Sopa de etiquetas"
 
 #: .\templates\feedjack\sinx\post_list.html.py:95
 msgid "Friends"
-msgstr ""
+msgstr "Amigos"
 
 #: .\templates\feedjack\sinx\post_list.html.py:107
 msgid "Links"
-msgstr ""
+msgstr "Enlace"
 
 #: .\templates\feedjack\sinx\post_list.html.py:125
 msgid "Welcome"
-msgstr ""
+msgstr "Bienvenido"
 
 #: .\templates\feedjack\sinx\post_list.html.py:131
 msgid "Credits"
-msgstr ""
+msgstr "Creditos"
 
 #: .\templates\feedjack\sinx\post_list.html.py:140
 msgid "Back"
-msgstr ""
+msgstr "Atrás"
 
 #: .\templates\feedjack\sinx\post_list.html.py:140
 msgid "Forward"
-msgstr ""
+msgstr "Adelante"
+
