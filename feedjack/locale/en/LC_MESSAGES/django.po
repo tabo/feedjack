@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Feedjack English translation v1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-16 04:00+0100\n"
-"PO-Revision-Date: 2006-11-16 04:01+0100\n"
+"POT-Creation-Date: 2006-11-20 18:01+0100\n"
+"PO-Revision-Date: 2006-11-20 18:14+0100\n"
 "Last-Translator: Petar Marić <petar.maric@gmail.com>\n"
 "Language-Team: Petar Marić <petar.maric@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -12,7 +12,6 @@ msgstr ""
 "X-Poedit-Country: YUGOSLAVIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Basepath: ../../../\n"
-"X-Poedit-Language: English\n"
 
 #: .\models.py:16
 msgid "Date published."
@@ -260,7 +259,7 @@ msgstr ""
 #: .\templates\feedjack\default\post_list.html.py:130
 #: .\templates\feedjack\sinx\post_list.html.py:50
 #, python-format
-msgid "by %(item.author)s at"
+msgid "by %(author)s at"
 msgstr ""
 
 #: .\templates\feedjack\default\post_list.html.py:133
@@ -275,7 +274,7 @@ msgstr ""
 
 #: .\templates\feedjack\default\post_list.html.py:152
 #, python-format
-msgid "What %(user.name)s talks about"
+msgid "What %(person)s talks about"
 msgstr ""
 
 #: .\templates\feedjack\default\post_list.html.py:154
@@ -296,7 +295,7 @@ msgstr ""
 
 #: .\templates\feedjack\default\post_list.html.py:187
 #, python-format
-msgid "feed (last modified: %(feed.feed.last_modified)s)"
+msgid "feed (last modified: %(last_modified)s)"
 msgstr ""
 
 #: .\templates\feedjack\default\post_list.html.py:199

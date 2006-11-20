@@ -127,7 +127,7 @@
     <p>{{ item.content }}</p>
     <div class="post-meta">
       <a href="{{ item.link }}">
-      {% if item.author %}{% blocktrans %}by {{ item.author }} at{% endblocktrans %}{% endif %}
+      {% if item.author %}{% blocktrans with item.author as author %}by {{ author }} at{% endblocktrans %}{% endif %}
       {{ item.date_modified|date:"g:i A" }}</a>
       {% for tag in item.qtags %}
           {% if forloop.first %}{% trans "under" %}{% endif %}
@@ -149,7 +149,7 @@
 
 <h4>
 {% if user_id %}
-  {% blocktrans %}What {{ user.name }} talks about{% endblocktrans %}
+  {% blocktrans with user.name as person %}What {{ person }} talks about{% endblocktrans %}
 {% else %}
   {% blocktrans %}What people talk about{% endblocktrans %}
 {% endif %}
@@ -184,7 +184,7 @@
 <li>
 <a href="{{ feed.feed.feed_url }}"
 {% if feed.feed.last_modified %}
-title="{% blocktrans %}feed (last modified: {{ feed.feed.last_modified }}){% endblocktrans %}"
+title="{% blocktrans with feed.feed.last_modified as last_modified %}feed (last modified: {{ last_modified }}){% endblocktrans %}"
 {% else %}
 title="{% trans "feed" %}"
 {% endif %}

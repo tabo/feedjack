@@ -47,7 +47,7 @@ Insert here your google ad code ;)
         {{ item.content }}
         <!-- End .content -->
         </div>
-        <p class="date"><a href="{{ item.link }}" title="{% trans "Author link" %}">{% if item.author %}{% blocktrans %}by {{ item.author }} at{% endblocktrans %}{% endif %}{{ item.date_modified|date:"g:i A" }}</a>{% for tag in item.qtags %}{% if forloop.first %} {% trans "under" %} {% endif %}<a href="{{ site.url }}/tag/{{ tag.name }}" title="Tag">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
+        <p class="date"><a href="{{ item.link }}" title="{% trans "Author link" %}">{% if item.author %}{% blocktrans with item.author as author %}by {{ author }} at{% endblocktrans %}{% endif %}{{ item.date_modified|date:"g:i A" }}</a>{% for tag in item.qtags %}{% if forloop.first %} {% trans "under" %} {% endif %}<a href="{{ site.url }}/tag/{{ tag.name }}" title="Tag">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
         {% if item.comments %}<a href="{{ item.comments }}" title="{% trans "Comments" %}">({% trans "Comments" %})</a> {% endif %}
         </p>
     <!-- End .entry -->

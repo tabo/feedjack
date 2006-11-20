@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Feedjack Spanish translation v1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-16 03:58+0100\n"
-"PO-Revision-Date: 2006-11-16 03:59+0100\n"
+"POT-Creation-Date: 2006-11-20 18:12+0100\n"
+"PO-Revision-Date: 2006-11-20 18:13+0100\n"
 "Last-Translator: Petar Marić <petar.maric@gmail.com>\n"
 "Language-Team: Petar Marić <petar.maric@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -260,8 +260,8 @@ msgstr "es sobre"
 #: .\templates\feedjack\default\post_list.html.py:130
 #: .\templates\feedjack\sinx\post_list.html.py:50
 #, python-format
-msgid "by %(item.author)s at"
-msgstr "por %(item.author)s en"
+msgid "by %(author)s at"
+msgstr "por %(author)s en"
 
 #: .\templates\feedjack\default\post_list.html.py:133
 #: .\templates\feedjack\sinx\post_list.html.py:50
@@ -275,8 +275,8 @@ msgstr "Commentarios"
 
 #: .\templates\feedjack\default\post_list.html.py:152
 #, python-format
-msgid "What %(user.name)s talks about"
-msgstr "Lo que %(user.name)s habla sobre"
+msgid "What %(person)s talks about"
+msgstr "Lo que %(person)s habla sobre"
 
 #: .\templates\feedjack\default\post_list.html.py:154
 msgid "What people talk about"
@@ -296,7 +296,7 @@ msgstr "Gente"
 
 #: .\templates\feedjack\default\post_list.html.py:187
 #, python-format
-msgid "feed (last modified: %(feed.feed.last_modified)s)"
+msgid "feed (last modified: %(last_modified)s)"
 msgstr ""
 
 #: .\templates\feedjack\default\post_list.html.py:199
