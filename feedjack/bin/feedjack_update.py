@@ -17,8 +17,6 @@ import sys
 
 import feedparser
 
-from feedjack import models, fjcache
-
 VERSION = '0.9.8a1'
 URL = 'http://www.feedjack.org/'
 USER_AGENT = 'Feedjack %s - %s' % (VERSION, URL)
@@ -43,6 +41,8 @@ def mtime(ttime):
 def get_tags(entry, tagdict):
     """ Returns a list of tag objects from an entry.
     """
+    from feedjack import models
+
     fcat = []
     if entry.has_key('tags'):
         for tcat in entry.tags:
@@ -111,7 +111,8 @@ def get_entry_data(entry, feed, tagdict):
 def process_entry(entry, fpf, feed, postdict, tagdict, options):
     """ Process a post in a feed and saves it in the DB if necessary.
     """
-    
+    from feedjack import models
+
     (link, title, guid, author, author_email, content, date_modified, fcat, \
       comments) = get_entry_data(entry, feed, tagdict)
 
@@ -171,6 +172,8 @@ def process_entry(entry, fpf, feed, postdict, tagdict, options):
 def process_feed(feed, tagdict, options):
     """ Downloads and parses a feed.
     """
+    from feedjack import models
+
     if options.verbose:
         print '#\n# Processing feed:', feed.feed_url, '\n#'
     else:
@@ -252,6 +255,7 @@ def process_feed(feed, tagdict, options):
 def update_feeds(tagdict, options):
     """ Updates all active feeds.
     """
+    from feedjack import models
 
     #for feed in models.Feed.objects.filter(is_active=True).iterator():
     for feed in models.Feed.objects.filter(is_active=True):
@@ -279,9 +283,11 @@ def main():
     parser.add_option('-t', '--timeout', type='int', default=10, \
       help='Wait timeout in seconds when connecting to feeds.')
     options = parser.parse_args()[0]
-    tagdict = dict([(tag.name, tag) for tag in models.Tag.objects.all()])
     if options.settings:
         os.environ["DJANGO_SETTINGS_MODULE"] = options.settings
+
+    from feedjack import models, fjcache
+    tagdict = dict([(tag.name, tag) for tag in models.Tag.objects.all()])
 
     # settting socket timeout (default= 10 seconds)
     socket.setdefaulttimeout(options.timeout)
