@@ -7,21 +7,39 @@ urls.py
 """
 
 from django.conf.urls.defaults import patterns
+from django.views.generic.simple import redirect_to
+
+from feedjack import views
+
+
 
 urlpatterns = patterns('',
-    (r'^rss20.xml$', 'django.views.generic.simple.redirect_to',
-        {'url':'/feed/rss/'}),
-    (r'^feed/$', 'django.views.generic.simple.redirect_to',
-        {'url':'/feed/rss/'}),
-    (r'^feed/rss/$', 'feedjack.views.rssfeed'),
-    (r'^feed/atom/$', 'feedjack.views.atomfeed'),
-    (r'^feed/user/(?P<user>.*)/tag/(?P<tag>.*)/$', 'feedjack.views.buildfeed'),
-    (r'^feed/user/(?P<user>.*)/$', 'feedjack.views.buildfeed'),
-    (r'^feed/tag/(?P<tag>.*)/$', 'feedjack.views.buildfeed'),
-    (r'^user/(?P<user>.*)/tag/(?P<tag>.*)/$', 'feedjack.views.mainview'),
-    (r'^user/(?P<user>.*)/$', 'feedjack.views.mainview'),
-    (r'^tag/(?P<tag>.*)/$', 'feedjack.views.mainview'),
-    (r'^opml/$', 'feedjack.views.opml'),
-    (r'^foaf/$', 'feedjack.views.foaf'),
-    (r'^$', 'feedjack.views.mainview'),
+    (r'^rss20.xml$', redirect_to,
+      {'url':'/feed/rss/'}),
+    (r'^feed/$', redirect_to,
+      {'url':'/feed/rss/'}),
+    (r'^feed/rss/$', views.rssfeed),
+    (r'^feed/atom/$', views.atomfeed),
+
+    (r'^feed/user/(?P<user>\d+)/tag/(?P<tag>.*)/$', redirect_to,
+      {'url':'/feed/atom/user/%(user)s/tag/%(tag)s/'}),
+    (r'^feed/user/(?P<user>\d+)/$', redirect_to,
+      {'url':'/feed/atom/user/%(user)s/'}),
+    (r'^feed/tag/(?P<tag>.*)/$', redirect_to,
+      {'url':'/feed/atom/tag/%(tag)/'}),
+
+    (r'^feed/atom/user/(?P<user>\d+)/tag/(?P<tag>.*)/$', views.atomfeed),
+    (r'^feed/atom/user/(?P<user>\d+)/$', views.atomfeed),
+    (r'^feed/atom/tag/(?P<tag>.*)/$', views.atomfeed),
+    (r'^feed/rss/user/(?P<user>\d+)/tag/(?P<tag>.*)/$', views.rssfeed),
+    (r'^feed/rss/user/(?P<user>\d+)/$', views.rssfeed),
+    (r'^feed/rss/tag/(?P<tag>.*)/$', views.rssfeed),
+
+    (r'^user/(?P<user>\d+)/tag/(?P<tag>.*)/$', views.mainview),
+    (r'^user/(?P<user>\d+)/$', views.mainview),
+    (r'^tag/(?P<tag>.*)/$', views.mainview),
+
+    (r'^opml/$', views.opml),
+    (r'^foaf/$', views.foaf),
+    (r'^$', views.mainview),
 )
