@@ -128,7 +128,7 @@ def getcurrentsite(http_post, path_info, query_string):
                 # Somebody is requesting something, but the user didn't create
                 # a site yet. Creating a default one...
                 ret = models.Site(name='Default Feedjack Site/Planet', \
-                  url='tabo.aurealsys.com', \
+                  url='www.feedjack.org', \
                   title='Feedjack Site Title', \
                   description='Feedjack Site Description. ' \
                     'Please change this in the admin interface.')
