@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     (r'^rss20.xml$', redirect_to,
       {'url':'/feed/rss/'}),
     (r'^feed/$', redirect_to,
-      {'url':'/feed/rss/'}),
+      {'url':'/feed/atom/'}),
     (r'^feed/rss/$', views.rssfeed),
     (r'^feed/atom/$', views.atomfeed),
 
