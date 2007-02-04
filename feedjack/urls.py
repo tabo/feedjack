@@ -26,7 +26,7 @@ urlpatterns = patterns('',
     (r'^feed/user/(?P<user>\d+)/$', redirect_to,
       {'url':'/feed/atom/user/%(user)s/'}),
     (r'^feed/tag/(?P<tag>.*)/$', redirect_to,
-      {'url':'/feed/atom/tag/%(tag)/'}),
+      {'url':'/feed/atom/tag/%(tag)s/'}),
 
     (r'^feed/atom/user/(?P<user>\d+)/tag/(?P<tag>.*)/$', views.atomfeed),
     (r'^feed/atom/user/(?P<user>\d+)/$', views.atomfeed),
