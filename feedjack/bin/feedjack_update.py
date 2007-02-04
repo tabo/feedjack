@@ -17,7 +17,7 @@ import sys
 
 import feedparser
 
-VERSION = '0.9.8a1'
+VERSION = '0.9.9'
 URL = 'http://www.feedjack.org/'
 USER_AGENT = 'Feedjack %s - %s' % (VERSION, URL)
 

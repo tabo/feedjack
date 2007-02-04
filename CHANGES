@@ -1,5 +1,12 @@
 CHANGES:
 
+Feedjack 0.9.9
+* Fixed i18n related bugs in the templates
+* Fixed a bug related to the --settings option in feedjack_update.py
+* The feeds per user, tag and user/tag are working again
+* You can choose between rss2 and atom in the feeds for user, tag and user/tag
+* The default /feed/ url now redirects to /feed/atom/ instead of /feed/rss/ 
+
 Feedjack 0.9.8
 * Internationalization (petar)
 * Fixed and infinite loop in feedjack_update.py (do'h!) (petar)
