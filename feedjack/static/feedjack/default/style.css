@@ -197,6 +197,14 @@ h1 a:link {
     font-size: 120%;
     font-weight: bold;
 }
+.cloud_4 {
+    font-size: 140%;
+    font-weight: bold;
+}
+.cloud_5 {
+    font-size: 160%;
+    font-weight: bold;
+}
 #paginate ul {
     margin:0;
     padding:0;
