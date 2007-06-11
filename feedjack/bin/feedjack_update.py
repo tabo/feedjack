@@ -59,6 +59,7 @@ def get_tags(entry, tagdict):
                 tagname = zcat.lower()
                 while '  ' in tagname:
                     tagname = tagname.replace('  ', ' ')
+                tagname = tagname.strip()
                 if not tagname or tagname == ' ':
                     continue
                 if tagname not in tagdict:
@@ -175,9 +176,9 @@ def process_feed(feed, tagdict, options):
     from feedjack import models
 
     if options.verbose:
-        print '#\n# Processing feed:', feed.feed_url, '\n#'
+        print '#\n# Processing feed (%d):' % feed.id, feed.feed_url, '\n#'
     else:
-        print '# Processing feed:', feed.feed_url
+        print '# Processing feed (%d):' % feed.id, feed.feed_url
     
     # we check the etag and the modified time to save bandwith and avoid bans
     try:
