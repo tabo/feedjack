@@ -65,6 +65,7 @@ def get_tags(entry):
                 if not models.Tag.objects.filter(name=tagname):
                     cobj = models.Tag(name=tagname)
                     cobj.save()
+                fcat.append(models.Tag.objects.get(name=tagname))
     return fcat
 
 def get_entry_data(entry, feed):
