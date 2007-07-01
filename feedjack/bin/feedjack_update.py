@@ -17,7 +17,7 @@ import sys
 
 import feedparser
 
-VERSION = '0.9.9'
+VERSION = '0.9.10'
 URL = 'http://www.feedjack.org/'
 USER_AGENT = 'Feedjack %s - %s' % (VERSION, URL)
 
@@ -38,7 +38,7 @@ def mtime(ttime):
     """
     return datetime.datetime.fromtimestamp(time.mktime(ttime))
 
-def get_tags(entry, tagdict):
+def get_tags(entry):
     """ Returns a list of tag objects from an entry.
     """
     from feedjack import models
@@ -59,16 +59,16 @@ def get_tags(entry, tagdict):
                 tagname = zcat.lower()
                 while '  ' in tagname:
                     tagname = tagname.replace('  ', ' ')
+                tagname = tagname.strip()
                 if not tagname or tagname == ' ':
                     continue
-                if tagname not in tagdict:
+                if not models.Tag.objects.filter(name=tagname):
                     cobj = models.Tag(name=tagname)
                     cobj.save()
-                    tagdict[tagname] = cobj
-                fcat.append(tagdict[tagname])
+                fcat.append(models.Tag.objects.get(name=tagname))
     return fcat
 
-def get_entry_data(entry, feed, tagdict):
+def get_entry_data(entry, feed):
     """ Retrieves data from a post and returns it in a tuple.
     """
     try:
@@ -102,19 +102,19 @@ def get_entry_data(entry, feed, tagdict):
     else:
         date_modified = None
 
-    fcat = get_tags(entry, tagdict)
+    fcat = get_tags(entry)
     comments = encode(entry.get('comments', ''))
 
     return (link, title, guid, author, author_email, content, date_modified, \
       fcat, comments)
 
-def process_entry(entry, fpf, feed, postdict, tagdict, options):
+def process_entry(entry, fpf, feed, postdict, options):
     """ Process a post in a feed and saves it in the DB if necessary.
     """
     from feedjack import models
 
     (link, title, guid, author, author_email, content, date_modified, fcat, \
-      comments) = get_entry_data(entry, feed, tagdict)
+      comments) = get_entry_data(entry, feed)
 
     if options.verbose:
         print 'entry:'
@@ -169,15 +169,15 @@ def process_entry(entry, fpf, feed, postdict, tagdict, options):
         tobj.save()
         [tobj.tags.add(tcat) for tcat in fcat]
 
-def process_feed(feed, tagdict, options):
+def process_feed(feed, options):
     """ Downloads and parses a feed.
     """
     from feedjack import models
 
     if options.verbose:
-        print '#\n# Processing feed:', feed.feed_url, '\n#'
+        print '#\n# Processing feed (%d):' % feed.id, feed.feed_url, '\n#'
     else:
-        print '# Processing feed:', feed.feed_url
+        print '# Processing feed (%d):' % feed.id, feed.feed_url
     
     # we check the etag and the modified time to save bandwith and avoid bans
     try:
@@ -240,7 +240,7 @@ def process_feed(feed, tagdict, options):
 
     for entry in fpf.entries:
         try:
-            process_entry(entry, fpf, feed, postdict, tagdict, options)
+            process_entry(entry, fpf, feed, postdict, options)
         except:
             (etype, eobj, etb) = sys.exc_info()
             print '! -------------------------'
@@ -252,7 +252,7 @@ def process_feed(feed, tagdict, options):
 
     return 0
 
-def update_feeds(tagdict, options):
+def update_feeds(options):
     """ Updates all active feeds.
     """
     from feedjack import models
@@ -260,7 +260,7 @@ def update_feeds(tagdict, options):
     #for feed in models.Feed.objects.filter(is_active=True).iterator():
     for feed in models.Feed.objects.filter(is_active=True):
         try:
-            process_feed(feed, tagdict, options)
+            process_feed(feed, options)
         except:
             (etype, eobj, etb) = sys.exc_info()
             print '! -------------------------'
@@ -287,7 +287,6 @@ def main():
         os.environ["DJANGO_SETTINGS_MODULE"] = options.settings
 
     from feedjack import models, fjcache
-    tagdict = dict([(tag.name, tag) for tag in models.Tag.objects.all()])
 
     # settting socket timeout (default= 10 seconds)
     socket.setdefaulttimeout(options.timeout)
@@ -295,7 +294,7 @@ def main():
     if options.feed:
         for feed in options.feed:
             try:
-                process_feed(models.Feed.objects.get(pk=feed), tagdict, options)
+                process_feed(models.Feed.objects.get(pk=feed), options)
             except  models.Feed.DoesNotExist:
                 print '! Unknown feed id: ', feed
     elif options.site:
@@ -304,11 +303,11 @@ def main():
           models.Site.objects.get(pk=int(options.site)).subscriber_set.all()]
         for feed in feeds:
             try:
-                process_feed(feed, tagdict, options)
+                process_feed(feed, options)
             except  models.Feed.DoesNotExist:
                 print '! Unknown site id: ', feed
     else:
-        update_feeds(tagdict, options)
+        update_feeds(options)
 
     # removing the cached data in all sites, this will only work with the
     # memcached, db and file backends

@@ -1,5 +1,12 @@
 CHANGES:
 
+Feedjack 0.9.10
+* Fixing CSS tags for styles 4 and 5
+* feedjack_update now strip()s tags before storing them
+* feedjack_update shows the feed number being processed
+* We no longer cache the tags in feedjack_update, it had encoding problems and
+  makes the script safe to run more than one instance at the same time
+
 Feedjack 0.9.9
 * Fixed i18n related bugs in the templates
 * Fixed a bug related to the --settings option in feedjack_update.py
