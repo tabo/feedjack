@@ -17,7 +17,7 @@ import sys
 
 import feedparser
 
-VERSION = '0.9.10'
+VERSION = '0.9.11a'
 URL = 'http://www.feedjack.org/'
 USER_AGENT = 'Feedjack %s - %s' % (VERSION, URL)
 
@@ -50,7 +50,7 @@ def get_tags(entry):
                 term = tcat.label
             else:
                 term = tcat.term
-            qcat = encode(term).strip()
+            qcat = term.strip()
             if ',' in qcat or '/' in qcat:
                 qcat = qcat.replace(',', '/').split('/')
             else:
@@ -72,30 +72,30 @@ def get_entry_data(entry, feed):
     """ Retrieves data from a post and returns it in a tuple.
     """
     try:
-        link = encode(entry.link)
+        link = entry.link
     except AttributeError:
         link = feed.link
     try:
-        title = encode(entry.title)
+        title = entry.title
     except AttributeError:
         title = link
-    guid = encode(entry.get('id', title))
+    guid = entry.get('id', title)
 
     if entry.has_key('author_detail'):
-        author = encode(entry.author_detail.get('name', ''))
-        author_email = encode(entry.author_detail.get('email', ''))
+        author = entry.author_detail.get('name', '')
+        author_email = entry.author_detail.get('email', '')
     else:
         author, author_email = '', ''
 
     if not author:
-        author = encode(entry.get('author', entry.get('creator', '')))
+        author = entry.get('author', entry.get('creator', ''))
     if not author_email:
         author_email = 'nospam@nospam.com'
     
     try:
-        content = encode(entry.content[0].value)
+        content = entry.content[0].value
     except:
-        content = encode(entry.get('summary', entry.get('description', '')))
+        content = entry.get('summary', entry.get('description', ''))
     
     if entry.has_key('modified_parsed'):
         date_modified = mtime(entry.modified_parsed)
@@ -103,7 +103,7 @@ def get_entry_data(entry, feed):
         date_modified = None
 
     fcat = get_tags(entry)
-    comments = encode(entry.get('comments', ''))
+    comments = entry.get('comments', '')
 
     return (link, title, guid, author, author_email, content, date_modified, \
       fcat, comments)
@@ -206,15 +206,15 @@ def process_feed(feed, options):
 
     # the feed has changed (or it is the first time we parse it)
     # saving the etag and last_modified fields
-    feed.etag = encode(fpf.get('etag', ''))
+    feed.etag = fpf.get('etag', '')
     try:
         feed.last_modified = mtime(fpf.modified)
     except:
         pass
     
-    feed.title = encode(fpf.feed.get('title', ''))[0:254]
-    feed.tagline = encode(fpf.feed.get('tagline', ''))
-    feed.link = encode(fpf.feed.get('link', ''))
+    feed.title = fpf.feed.get('title', '')[0:254]
+    feed.tagline = fpf.feed.get('tagline', '')
+    feed.link = fpf.feed.get('link', '')
     feed.last_checked = datetime.datetime.now()
 
     if options.verbose:
@@ -225,12 +225,12 @@ def process_feed(feed, options):
 
     guids = []
     for entry in fpf.entries:
-        if encode(entry.get('id', '')):
-            guids.append(encode(entry.get('id', '')))
+        if entry.get('id', ''):
+            guids.append(entry.get('id', ''))
         elif entry.title:
-            guids.append(encode(entry.title))
+            guids.append(entry.title)
         elif entry.link:
-            guids.append(encode(entry.link))
+            guids.append(entry.link)
     feed.save()
     if guids:
         postdict = dict([(post.guid, post) \

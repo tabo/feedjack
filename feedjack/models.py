@@ -8,7 +8,8 @@ models.py
 """
 
 from django.db import models
-from django.utils.translation import gettext_lazy as _ 
+from django.utils.translation import ugettext_lazy as _ 
+from django.utils.encoding import smart_unicode
 
 from feedjack import fjcache
 
@@ -28,15 +29,18 @@ class Link(models.Model):
     class Admin:
         pass
 
-    def __str__(self):
-        return '%s (%s)' % (self.name, self.link)
+    def __unicode__(self):
+        return u'%s (%s)' % (self.name, self.link)
 
 
 class Site(models.Model):
     name = models.CharField(_('name'), maxlength=100)
-    url = models.CharField(_('url'), maxlength=100, unique=True, \
-      help_text=_('Example') + ': http://www.planetexample.com, ' \
-        'http://www.planetexample.com:8000/foo')
+    url = models.CharField(_('url'),
+      maxlength=100,
+      unique=True,
+      help_text=u'%s: %s, %s' % (smart_unicode(_('Example')),
+        u'http://www.planetexample.com',
+        u'http://www.planetexample.com:8000/foo'))
     title = models.CharField(_('title'), maxlength=200)
     description = models.TextField(_('description'))
     welcome = models.TextField(_('welcome'), null=True, blank=True)
@@ -67,7 +71,7 @@ class Site(models.Model):
         verbose_name_plural = _('sites')
         ordering = ('name',)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     def save(self):
@@ -122,8 +126,8 @@ class Feed(models.Model):
         verbose_name_plural = _('feeds')
         ordering = ('name', 'feed_url',)
 
-    def __str__(self):
-        return '%s (%s)' % (self.name, self.feed_url)
+    def __unicode__(self):
+        return u'%s (%s)' % (self.name, self.feed_url)
 
     def save(self):
         super(Feed, self).save()
@@ -136,7 +140,7 @@ class Tag(models.Model):
         verbose_name_plural = _('tags')
         ordering = ('name',)
     
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     def save(self):
@@ -166,7 +170,7 @@ class Post(models.Model):
         ordering = ('-date_modified',)
         unique_together = (('feed', 'guid'),)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.title
 
     def save(self):
@@ -198,8 +202,8 @@ class Subscriber(models.Model):
         ordering = ('site', 'name', 'feed')
         unique_together = (('site', 'feed'),)
 
-    def __str__(self):
-        return '%s in %s' % (self.feed, self.site)
+    def __unicode__(self):
+        return u'%s in %s' % (self.feed, self.site)
 
     def get_cloud(self):
         from feedjack import fjcloud

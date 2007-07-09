@@ -100,15 +100,14 @@ def buildfeed(request, feedclass, tag=None, user=None):
         feed_url='%s/%s' % (site.url, '/feed/rss/'))
     for post in object_list:
         feed.add_item( \
-          title = '%s: %s' % (post.feed.name.decode('utf-8'), \
-            post.title.decode('utf-8')), \
+          title = '%s: %s' % (post.feed.name, post.title), \
           link = post.link, \
-          description = post.content.decode('utf-8'), \
-          author_email = post.author_email.decode('utf-8'), \
-          author_name = post.author.decode('utf-8'), \
+          description = post.content, \
+          author_email = post.author_email, \
+          author_name = post.author, \
           pubdate = post.date_modified, \
           unique_id = post.link, \
-          categories = [tag.name .decode('utf-8') for tag in post.tags.all()])
+          categories = [tag.name for tag in post.tags.all()])
     response = HttpResponse(mimetype=feed.mime_type)
 
     # per host caching
