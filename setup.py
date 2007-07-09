@@ -9,7 +9,7 @@ from finddata import find_package_data
 
 setup(
     name = 'Feedjack',
-    version = '0.9.10',
+    version = '0.9.11a',
     url = 'http://www.feedjack.org/',
     author = 'Gustavo Picón',
     author_email = 'gpicon@aureal.com.pe',

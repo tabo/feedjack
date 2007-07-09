@@ -1,5 +1,8 @@
 CHANGES:
 
+Feedjack 0.9.11a
+* Feedjack is now django-unicode compliant
+
 Feedjack 0.9.10
 * Fixing CSS tags for styles 4 and 5
 * feedjack_update now strip()s tags before storing them
