@@ -9,7 +9,6 @@ fjlib.py
 from django.conf import settings
 from django.db import connection
 from django.core.paginator import ObjectPaginator, InvalidPage
-from django.db import backend
 from django.http import Http404
 
 from feedjack import models
@@ -71,18 +70,18 @@ def get_posts_tags(object_list, sfeeds_obj, user_id, tag_name):
     tag_obj = None
     tags = models.Tag.objects.extra(\
       select={'post_id':'%s.%s' % (\
-        backend.quote_name('feedjack_post_tags'), \
-        backend.quote_name('post_id'))}, \
+        connection.ops.quote_name('feedjack_post_tags'), \
+        connection.ops.quote_name('post_id'))}, \
       tables=['feedjack_post_tags'], \
       where=[\
         '%s.%s=%s.%s' % (\
-          backend.quote_name('feedjack_tag'), \
-          backend.quote_name('id'), \
-          backend.quote_name('feedjack_post_tags'), \
-          backend.quote_name('tag_id')), \
+          connection.ops.quote_name('feedjack_tag'), \
+          connection.ops.quote_name('id'), \
+          connection.ops.quote_name('feedjack_post_tags'), \
+          connection.ops.quote_name('tag_id')), \
         '%s.%s IN (%s)' % (\
-          backend.quote_name('feedjack_post_tags'), \
-          backend.quote_name('post_id'), \
+          connection.ops.quote_name('feedjack_post_tags'), \
+          connection.ops.quote_name('post_id'), \
           ', '.join([str(post.id) for post in object_list]))])
     for tag in tags:
         if tag.post_id not in tagd:
