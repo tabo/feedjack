@@ -19,7 +19,7 @@ SITE_ORDERBY_CHOICES = (
 )
 
 class Link(models.Model):
-    name = models.CharField(_('name'), maxlength=100, unique=True)
+    name = models.CharField(_('name'), max_length=100, unique=True)
     link = models.URLField(_('link'), verify_exists=True)
 
     class Meta:
@@ -34,14 +34,14 @@ class Link(models.Model):
 
 
 class Site(models.Model):
-    name = models.CharField(_('name'), maxlength=100)
+    name = models.CharField(_('name'), max_length=100)
     url = models.CharField(_('url'),
-      maxlength=100,
+      max_length=100,
       unique=True,
       help_text=u'%s: %s, %s' % (smart_unicode(_('Example')),
         u'http://www.planetexample.com',
         u'http://www.planetexample.com:8000/foo'))
-    title = models.CharField(_('title'), maxlength=200)
+    title = models.CharField(_('title'), max_length=200)
     description = models.TextField(_('description'))
     welcome = models.TextField(_('welcome'), null=True, blank=True)
     greets = models.TextField(_('greets'), null=True, blank=True)
@@ -59,7 +59,7 @@ class Site(models.Model):
 
     links = models.ManyToManyField(Link, verbose_name=_('links'), filter_interface=models.VERTICAL, \
       null=True, blank=True)
-    template = models.CharField(_('template'), maxlength=100, null=True, blank=True, \
+    template = models.CharField(_('template'), max_length=100, null=True, blank=True, \
       help_text=_('This template must be a directory in your feedjack ' \
         'templates directory. Leave blank to use the default template.') )
 
@@ -95,17 +95,17 @@ class Site(models.Model):
 class Feed(models.Model):
     feed_url = models.URLField(_('feed url'), unique=True)
 
-    name = models.CharField(_('name'), maxlength=100)
-    shortname = models.CharField(_('shortname'), maxlength=50)
+    name = models.CharField(_('name'), max_length=100)
+    shortname = models.CharField(_('shortname'), max_length=50)
     is_active = models.BooleanField(_('is active'), default=True, \
       help_text=_('If disabled, this feed will not be further updated.') )
 
-    title = models.CharField(_('title'), maxlength=200, blank=True)
+    title = models.CharField(_('title'), max_length=200, blank=True)
     tagline = models.TextField(_('tagline'), blank=True)
     link = models.URLField(_('link'), blank=True)
 
     # http://feedparser.org/docs/http-etag.html
-    etag = models.CharField(_('etag'), maxlength=50, blank=True)
+    etag = models.CharField(_('etag'), max_length=50, blank=True)
     last_modified = models.DateTimeField(_('last modified'), null=True, blank=True)
     last_checked = models.DateTimeField(_('last checked'), null=True, blank=True)
 
@@ -133,7 +133,7 @@ class Feed(models.Model):
         super(Feed, self).save()
 
 class Tag(models.Model):
-    name = models.CharField(_('name'), maxlength=50, unique=True)
+    name = models.CharField(_('name'), max_length=50, unique=True)
 
     class Meta:
         verbose_name = _('tag')
@@ -148,12 +148,12 @@ class Tag(models.Model):
 
 class Post(models.Model):
     feed = models.ForeignKey(Feed, verbose_name=_('feed'), null=False, blank=False)
-    title = models.CharField(_('title'), maxlength=255)
+    title = models.CharField(_('title'), max_length=255)
     link = models.URLField(_('link'), )
     content = models.TextField(_('content'), blank=True)
     date_modified = models.DateTimeField(_('date modified'), null=True, blank=True)
-    guid = models.CharField(_('guid'), maxlength=200, db_index=True)
-    author = models.CharField(_('author'), maxlength=50, blank=True)
+    guid = models.CharField(_('guid'), max_length=200, db_index=True)
+    author = models.CharField(_('author'), max_length=50, blank=True)
     author_email = models.EmailField(_('author email'), blank=True)
     comments = models.URLField(_('comments'), blank=True)
     tags = models.ManyToManyField(Tag, verbose_name=_('tags'), filter_interface=models.VERTICAL)
@@ -184,9 +184,9 @@ class Subscriber(models.Model):
     site = models.ForeignKey(Site, verbose_name=_('site') )
     feed = models.ForeignKey(Feed, verbose_name=_('feed') )
 
-    name = models.CharField(_('name'), maxlength=100, null=True, blank=True, \
+    name = models.CharField(_('name'), max_length=100, null=True, blank=True, \
       help_text=_('Keep blank to use the Feed\'s original name.') )
-    shortname = models.CharField(_('shortname'), maxlength=50, null=True, blank=True, \
+    shortname = models.CharField(_('shortname'), max_length=50, null=True, blank=True, \
       help_text=_('Keep blank to use the Feed\'s original shortname.') )
     is_active = models.BooleanField(_('is active'), default=True, \
       help_text=_('If disabled, this subscriber will not appear in the site or '\
