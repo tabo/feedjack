@@ -22,7 +22,7 @@ def str2md5(key):
     """ Returns the md5 hash of a string.
     """
     ctx = md5.new()
-    ctx.update(key)
+    ctx.update(key.encode('utf-8'))
     return ctx.hexdigest()
 
 def getkey(stype, site_id=None, key=None):

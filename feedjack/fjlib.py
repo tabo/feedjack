@@ -10,6 +10,7 @@ from django.conf import settings
 from django.db import connection
 from django.core.paginator import ObjectPaginator, InvalidPage
 from django.http import Http404
+from django.utils.encoding import smart_unicode
 
 from feedjack import models
 from feedjack import fjcache
@@ -105,9 +106,10 @@ def get_posts_tags(object_list, sfeeds_obj, user_id, tag_name):
 def getcurrentsite(http_post, path_info, query_string):
     """ Returns the site id and the page cache key based on the request.
     """
-    url = 'http://%s/%s' % (http_post.rstrip('/'), \
-      path_info.lstrip('/'))
-    pagecachekey = '%s?%s' % (path_info, query_string)
+    url = u'http://%s/%s' % (smart_unicode(http_post.rstrip('/')), \
+      smart_unicode(path_info.lstrip('/')))
+    pagecachekey = '%s?%s' % (smart_unicode(path_info), \
+      smart_unicode(query_string))
     hostdict = fjcache.hostcache_get()
 
     if not hostdict:
