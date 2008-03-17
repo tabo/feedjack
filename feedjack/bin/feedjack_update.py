@@ -207,6 +207,10 @@ def process_feed(feed, options):
     # the feed has changed (or it is the first time we parse it)
     # saving the etag and last_modified fields
     feed.etag = fpf.get('etag', '')
+    # some times this is None (it never should) *sigh*
+    if feed.etag is None:
+        feed.etag = ''
+
     try:
         feed.last_modified = mtime(fpf.modified)
     except:
