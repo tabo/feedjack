@@ -145,7 +145,7 @@
 <div id="sidebar">
 <h4>{{ site.name }}</h4>
 
-{{ site.welcome }}
+{{ site.welcome|safe }}
 
 <h4>
 {% if user_id %}
@@ -197,7 +197,7 @@ title="{{ feed.feed.title }}">{{ feed.name }}</a></li>
 
 
 <h4>{% trans "Greetings" %}</h4>
-{{ site.greets }}
+{{ site.greets|safe }}
 
 </div>
 

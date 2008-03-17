@@ -123,13 +123,13 @@ Insert here your google ad code ;)
 {% if site.welcome %}
 <div class="welcome">
 <h2>{% trans "Welcome" %}</h2>
-{{ site.welcome }}
+{{ site.welcome|safe }}
 </div>
 {% endif %}
 {% if site.greets %}
 <div class="credits">
 <h2>{% trans "Credits" %}</h2> 
-{{ site.greets }}
+{{ site.greets|safe }}
 </div>
 {% endif %}
 
