@@ -177,7 +177,10 @@ def page_context(request, site, tag=None, user_id=None, sfeeds=None):
     """ Returns the context dictionary for a page view.
     """
     sfeeds_obj, sfeeds_ids = sfeeds
-    page = int(request.GET.get('page', 0))
+    try:
+        page = int(request.GET.get('page', 0))
+    except ValueError:
+        page = 0
     paginator, object_list = get_paginator(site, sfeeds_ids, \
       page=page, tag=tag, user=user_id)
     if object_list:
