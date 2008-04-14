@@ -9,8 +9,8 @@ fjlib.py
 from django.conf import settings
 from django.db import connection
 from django.core.paginator import ObjectPaginator, InvalidPage
-from django.db import backend
 from django.http import Http404
+from django.utils.encoding import smart_unicode
 
 from feedjack import models
 from feedjack import fjcache
@@ -71,18 +71,18 @@ def get_posts_tags(object_list, sfeeds_obj, user_id, tag_name):
     tag_obj = None
     tags = models.Tag.objects.extra(\
       select={'post_id':'%s.%s' % (\
-        backend.quote_name('feedjack_post_tags'), \
-        backend.quote_name('post_id'))}, \
+        connection.ops.quote_name('feedjack_post_tags'), \
+        connection.ops.quote_name('post_id'))}, \
       tables=['feedjack_post_tags'], \
       where=[\
         '%s.%s=%s.%s' % (\
-          backend.quote_name('feedjack_tag'), \
-          backend.quote_name('id'), \
-          backend.quote_name('feedjack_post_tags'), \
-          backend.quote_name('tag_id')), \
+          connection.ops.quote_name('feedjack_tag'), \
+          connection.ops.quote_name('id'), \
+          connection.ops.quote_name('feedjack_post_tags'), \
+          connection.ops.quote_name('tag_id')), \
         '%s.%s IN (%s)' % (\
-          backend.quote_name('feedjack_post_tags'), \
-          backend.quote_name('post_id'), \
+          connection.ops.quote_name('feedjack_post_tags'), \
+          connection.ops.quote_name('post_id'), \
           ', '.join([str(post.id) for post in object_list]))])
     for tag in tags:
         if tag.post_id not in tagd:
@@ -106,9 +106,10 @@ def get_posts_tags(object_list, sfeeds_obj, user_id, tag_name):
 def getcurrentsite(http_post, path_info, query_string):
     """ Returns the site id and the page cache key based on the request.
     """
-    url = 'http://%s/%s' % (http_post.rstrip('/'), \
-      path_info.lstrip('/'))
-    pagecachekey = '%s?%s' % (path_info, query_string)
+    url = u'http://%s/%s' % (smart_unicode(http_post.rstrip('/')), \
+      smart_unicode(path_info.lstrip('/')))
+    pagecachekey = '%s?%s' % (smart_unicode(path_info), \
+      smart_unicode(query_string))
     hostdict = fjcache.hostcache_get()
 
     if not hostdict:
@@ -176,7 +177,10 @@ def page_context(request, site, tag=None, user_id=None, sfeeds=None):
     """ Returns the context dictionary for a page view.
     """
     sfeeds_obj, sfeeds_ids = sfeeds
-    page = int(request.GET.get('page', 0))
+    try:
+        page = int(request.GET.get('page', 0))
+    except ValueError:
+        page = 0
     paginator, object_list = get_paginator(site, sfeeds_ids, \
       page=page, tag=tag, user=user_id)
     if object_list:

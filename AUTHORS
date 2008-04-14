@@ -4,6 +4,9 @@ Picón, using the Django Web Development framework.
 Colaborators:
  * Petar Marić  (internationalization and lots more)
  * Brian Muller
+ * Paul Bissex
+ * Alex Kuo (extra detailed guide on making feedjack work with a recent django)
+ * lit40 (unicode tags patch)
 
 Language packs:
  * Petar Marić (serbian)
@@ -12,4 +15,3 @@ Language packs:
 Template authors:
  * Diego Escalante: LostWoods (default) theme.
  * Jesus del Carpio: sinx
-

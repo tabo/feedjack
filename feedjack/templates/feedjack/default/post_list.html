@@ -7,7 +7,7 @@
   Feedjack LostWoods theme
   Simple and green (where's the brown? -brown doesn't count)
  
-  Copyright Diego Escalante Urrelo <descalante@aureal.com.pe>
+  Copyright Diego Escalante Urrelo <diegoe@gnome.org>
  -->
 <head>
 	<meta name="description" content="Feedjack" />
@@ -124,7 +124,7 @@
   <div class="post-title">» {{ item.subscriber.name }}</div>
   {% endif %}
   <div class="post-content">
-    <p>{{ item.content }}</p>
+    <p>{{ item.content|safe }}</p>
     <div class="post-meta">
       <a href="{{ item.link }}">
       {% if item.author %}{% blocktrans with item.author as author %}by {{ author }} at{% endblocktrans %}{% endif %}
@@ -145,7 +145,7 @@
 <div id="sidebar">
 <h4>{{ site.name }}</h4>
 
-{{ site.welcome }}
+{{ site.welcome|safe }}
 
 <h4>
 {% if user_id %}
@@ -197,7 +197,7 @@ title="{{ feed.feed.title }}">{{ feed.name }}</a></li>
 
 
 <h4>{% trans "Greetings" %}</h4>
-{{ site.greets }}
+{{ site.greets|safe }}
 
 </div>
 
