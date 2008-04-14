@@ -1,7 +1,14 @@
 CHANGES:
 
-Feedjack 0.9.11a
+Feedjack 0.9.12
 * Feedjack is now django-unicode compliant
+* Using max_length instead of maxlength in models.py to prevent warnings in
+  syncdb
+* Patched fjlib to use the new django refactored database backends
+* Disabling autoscaping for post contents in the included templates
+* Handling of feedparser returning an empty etag
+* Fixing encoding related problems in tag urls
+* Non-integer page parameters should be handled correctly
 
 Feedjack 0.9.10
 * Fixing CSS tags for styles 4 and 5
