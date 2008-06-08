@@ -1,5 +1,22 @@
 CHANGES:
 
+Feedjack 0.9.14
+* Lots of fixes/improvements in feedjack_update.py:
+  - better unicode handling on logging, this will prevent feeds not updating
+    when using the --verbose flag
+  - Multithreaded feed fetching, needs the threadpool module, available in
+    http://www.chrisarndt.de/projects/threadpool/
+    By default 10 threads will be used, can be modified with the -w option
+    If the threadpool module is not available, the old (SLOW) single
+    threaded method will be used.
+  - Improved logging. Since multiple feeds can be processed in parallel now,
+    all log entries go in a single line, with the feed id as a prefix.
+  - Stats in the logging, how many new posts, updated posts, unmodified posts
+    and errors were found per feed and globally, and feed status (ok,
+    unchanged, can't parse feed, http error, some exception)
+  - Reporting slow feeds, if a feed takes longer than 10 seconds to process, it
+    will appear in the logs with the tag "(SLOW FEED!)"
+
 Feedjack 0.9.12
 * Feedjack is now django-unicode compliant
 * Using max_length instead of maxlength in models.py to prevent warnings in

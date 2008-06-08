@@ -9,10 +9,10 @@ from finddata import find_package_data
 
 setup(
     name = 'Feedjack',
-    version = '0.9.12',
+    version = '0.9.14',
     url = 'http://www.feedjack.org/',
     author = 'Gustavo Picón',
-    author_email = 'gpicon@aureal.com.pe',
+    author_email = 'gpicon@gmail.com',
     license = 'BSD',
     packages = find_packages(),
     package_data = find_package_data(where='feedjack', package='feedjack'),
