@@ -55,11 +55,12 @@ def mtime(ttime):
     return datetime.datetime.fromtimestamp(time.mktime(ttime))
 
 class ProcessEntry:
-    def __init__(self, feed, options, entry, postdict):
+    def __init__(self, feed, options, entry, postdict, fpf):
         self.feed = feed
         self.options = options
         self.entry = entry
         self.postdict = postdict
+        self.fpf = fpf
 
     def get_tags(self):
         """ Returns a list of tag objects from an entry.
@@ -184,15 +185,15 @@ class ProcessEntry:
             retval = ENTRY_NEW
             if self.options.verbose:
                 prints('[%d] Saving new post: %s' % (self.feed.id, link))
-            if not date_modified:
+            if not date_modified and self.fpf:
                 # if the feed has no date_modified info, we use the feed
                 # mtime or the current time
                 if self.fpf.feed.has_key('modified_parsed'):
                     date_modified = mtime(self.fpf.feed.modified_parsed)
                 elif self.fpf.has_key('modified'):
                     date_modified = mtime(self.fpf.modified)
-                else:
-                    date_modified = datetime.datetime.now()
+            if not date_modified:
+                date_modified = datetime.datetime.now()
             tobj = models.Post(feed=self.feed, title=title, link=link,
                 content=content, guid=guid, date_modified=date_modified,
                 author=author, author_email=author_email,
@@ -206,11 +207,13 @@ class ProcessFeed:
     def __init__(self, feed, options):
         self.feed = feed
         self.options = options
+        self.fpf = None
 
     def process_entry(self, entry, postdict):
         """ wrapper for ProcessEntry
         """
-        entry = ProcessEntry(self.feed, self.options, entry, postdict)
+        entry = ProcessEntry(self.feed, self.options, entry, postdict,
+                             self.fpf)
         ret_entry = entry.process()
         del entry
         return ret_entry
