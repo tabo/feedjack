@@ -22,7 +22,7 @@ try:
 except ImportError:
     threadpool = None
 
-VERSION = '0.9.14'
+VERSION = '0.9.15'
 URL = 'http://www.feedjack.org/'
 USER_AGENT = 'Feedjack %s - %s' % (VERSION, URL)
 SLOWFEED_WARNING = 10

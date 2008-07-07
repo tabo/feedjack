@@ -1,5 +1,8 @@
 CHANGES:
 
+Feedjack 0.9.15
+* Fixing feedjack_update for posts without a modified date (yay rss 0.92!)
+
 Feedjack 0.9.14
 * Lots of fixes/improvements in feedjack_update.py:
   - better unicode handling on logging, this will prevent feeds not updating
