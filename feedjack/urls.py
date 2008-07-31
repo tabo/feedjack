@@ -43,3 +43,5 @@ urlpatterns = patterns('',
     (r'^foaf/$', views.foaf),
     (r'^$', views.mainview),
 )
+
+#~

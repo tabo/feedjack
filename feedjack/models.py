@@ -33,6 +33,7 @@ class Link(models.Model):
         return u'%s (%s)' % (self.name, self.link)
 
 
+
 class Site(models.Model):
     name = models.CharField(_('name'), max_length=100)
     url = models.CharField(_('url'),
@@ -48,23 +49,21 @@ class Site(models.Model):
 
     default_site = models.BooleanField(_('default site'), default=False)
     posts_per_page = models.IntegerField(_('posts per page'), default=20)
-    order_posts_by = models.IntegerField(_('order posts by'), default=1, \
-      choices=SITE_ORDERBY_CHOICES)
+    order_posts_by = models.IntegerField(_('order posts by'), default=1,
+        choices=SITE_ORDERBY_CHOICES)
     tagcloud_levels = models.IntegerField(_('tagcloud level'), default=5)
     show_tagcloud = models.BooleanField(_('show tagcloud'), default=True)
     
     use_internal_cache = models.BooleanField(_('use internal cache'), default=True)
-    cache_duration = models.IntegerField(_('cache duration'), default=60*60*24, \
-      help_text=_('Duration in seconds of the cached pages and data.') )
+    cache_duration = models.IntegerField(_('cache duration'), default=60*60*24,
+        help_text=_('Duration in seconds of the cached pages and data.') )
 
-    links = models.ManyToManyField(Link, verbose_name=_('links'), filter_interface=models.VERTICAL, \
+    links = models.ManyToManyField(Link, verbose_name=_('links'),
       null=True, blank=True)
-    template = models.CharField(_('template'), max_length=100, null=True, blank=True, \
-      help_text=_('This template must be a directory in your feedjack ' \
+    template = models.CharField(_('template'), max_length=100, null=True,
+      blank=True, 
+      help_text=_('This template must be a directory in your feedjack '
         'templates directory. Leave blank to use the default template.') )
-
-    class Admin:
-        list_display = ('url', 'name')
 
     class Meta:
         verbose_name = _('site')
@@ -92,13 +91,14 @@ class Site(models.Model):
 
 
 
+
 class Feed(models.Model):
     feed_url = models.URLField(_('feed url'), unique=True)
 
     name = models.CharField(_('name'), max_length=100)
     shortname = models.CharField(_('shortname'), max_length=50)
-    is_active = models.BooleanField(_('is active'), default=True, \
-      help_text=_('If disabled, this feed will not be further updated.') )
+    is_active = models.BooleanField(_('is active'), default=True,
+        help_text=_('If disabled, this feed will not be further updated.') )
 
     title = models.CharField(_('title'), max_length=200, blank=True)
     tagline = models.TextField(_('tagline'), blank=True)
@@ -108,18 +108,6 @@ class Feed(models.Model):
     etag = models.CharField(_('etag'), max_length=50, blank=True)
     last_modified = models.DateTimeField(_('last modified'), null=True, blank=True)
     last_checked = models.DateTimeField(_('last checked'), null=True, blank=True)
-
-    class Admin:
-        list_display = ('name', 'feed_url', 'title', 'last_modified', \
-          'is_active')
-        fields = (
-          (None, {'fields':('feed_url', 'name', 'shortname', 'is_active')}),
-          (_('Fields updated automatically by Feedjack'), {
-            'classes':'collapse',
-            'fields':('title', 'tagline', 'link', 'etag', 'last_modified', \
-              'last_checked')})
-        )
-        search_fields = ['feed_url', 'name', 'title']
 
     class Meta:
         verbose_name = _('feed')
@@ -131,6 +119,8 @@ class Feed(models.Model):
 
     def save(self):
         super(Feed, self).save()
+
+
 
 class Tag(models.Model):
     name = models.CharField(_('name'), max_length=50, unique=True)
@@ -156,13 +146,8 @@ class Post(models.Model):
     author = models.CharField(_('author'), max_length=50, blank=True)
     author_email = models.EmailField(_('author email'), blank=True)
     comments = models.URLField(_('comments'), blank=True)
-    tags = models.ManyToManyField(Tag, verbose_name=_('tags'), filter_interface=models.VERTICAL)
+    tags = models.ManyToManyField(Tag, verbose_name=_('tags'))
     date_created = models.DateField(_('date created'), auto_now_add=True)
-
-    class Admin:
-        list_display = ('title', 'link', 'author', 'date_modified')
-        search_fields = ['link', 'title']
-        date_hierarchy = 'date_modified'
 
     class Meta:
         verbose_name = _('post')
@@ -180,21 +165,19 @@ class Post(models.Model):
         return self.link
 
 
+
 class Subscriber(models.Model):
     site = models.ForeignKey(Site, verbose_name=_('site') )
     feed = models.ForeignKey(Feed, verbose_name=_('feed') )
 
-    name = models.CharField(_('name'), max_length=100, null=True, blank=True, \
-      help_text=_('Keep blank to use the Feed\'s original name.') )
-    shortname = models.CharField(_('shortname'), max_length=50, null=True, blank=True, \
+    name = models.CharField(_('name'), max_length=100, null=True, blank=True,
+        help_text=_('Keep blank to use the Feed\'s original name.') )
+    shortname = models.CharField(_('shortname'), max_length=50, null=True,
+      blank=True,
       help_text=_('Keep blank to use the Feed\'s original shortname.') )
-    is_active = models.BooleanField(_('is active'), default=True, \
-      help_text=_('If disabled, this subscriber will not appear in the site or '\
+    is_active = models.BooleanField(_('is active'), default=True,
+        help_text=_('If disabled, this subscriber will not appear in the site or '
         'in the site\'s feed.') )
-
-    class Admin:
-        list_display = ('name', 'site', 'feed')
-        list_filter = ('site',)
 
     class Meta:
         verbose_name = _('subscriber')
