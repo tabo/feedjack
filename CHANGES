@@ -1,5 +1,11 @@
 CHANGES:
 
+Feedjack 0.9.16
+* Added compatibility with Django 1.0 beta 1: newforms admin and pagination
+
+Feedjack 0.9.15
+* Fixing feedjack_update for posts without a modified date (yay rss 0.92!)
+
 Feedjack 0.9.15
 * Fixing feedjack_update for posts without a modified date (yay rss 0.92!)
 
